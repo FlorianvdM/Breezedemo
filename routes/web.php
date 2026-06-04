@@ -11,6 +11,30 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+# Praktijkmanagement Routes
+Route::get('/praktijkmanagement', [PraktijkmanagementController::class, 'index'])
+    ->name('praktijkmanagement.index')
+    ->middleware(['auth', 'role:praktijkmanagement']);
+
+Route::get('/praktijkmanagement/userroles', [PraktijkmanagementController::class, 'manageUserroles'])
+    ->name('praktijkmanagement.userroles')
+    ->middleware(['auth', 'role:praktijkmanagement']);
+
+Route::get('/praktijkmanagement/{id}/edit', [PraktijkmanagementController::class, 'edit'])
+    ->name('praktijkmanagement.edit')
+    ->middleware(['auth', 'role:praktijkmanagement']);
+
+Route::delete('/praktijkmanagement/{id}', [PraktijkmanagementController::class, 'destroy'])
+    ->name('praktijkmanagement.destroy')
+    ->middleware(['auth', 'role:praktijkmanagement']);
+
+Route::get('/praktijkmanagement/{id}', [PraktijkmanagementController::class, 'show'])
+    ->name('praktijkmanagement.show')
+    ->middleware(['auth', 'role:praktijkmanagement']);
+
+Route::get('/tandarts', [TandartsController::class, 'index'])
+    ->name('tandarts.index')
+    ->middleware(['auth', 'role:tandarts']);
 
 Route::get('/tandarts', [TandartsController::class, 'index'])
       ->name('tandarts.index')
@@ -32,10 +56,10 @@ Route::get('/assistent', [AssistentController::class, 'index'])
     ->name('assistent.index')
     ->middleware('auth', 'role:assistent,praktijkmanagement');
 
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
