@@ -24,6 +24,10 @@ Route::get('/praktijkmanagement/{id}/edit', [PraktijkmanagementController::class
     ->name('praktijkmanagement.edit')
     ->middleware(['auth', 'role:praktijkmanagement']);
 
+Route::get('/praktijkmanagement/{id}/delete', [PraktijkmanagementController::class, 'confirmDelete'])
+    ->name('praktijkmanagement.confirmDelete')
+    ->middleware(['auth', 'role:praktijkmanagement']);
+
 Route::delete('/praktijkmanagement/{id}', [PraktijkmanagementController::class, 'destroy'])
     ->name('praktijkmanagement.destroy')
     ->middleware(['auth', 'role:praktijkmanagement']);
@@ -55,6 +59,10 @@ Route::get('/praktijkmanagement', [PraktijkmanagementController::class, 'index']
 Route::get('/assistent', [AssistentController::class, 'index'])
     ->name('assistent.index')
     ->middleware('auth', 'role:assistent,praktijkmanagement');
+
+Route::put('/praktijkmanagement/{id}', [PraktijkmanagementController::class, 'update'])
+    ->name('praktijkmanagement.update')
+    ->middleware(['auth', 'role:praktijkmanagement']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
