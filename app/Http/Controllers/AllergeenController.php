@@ -7,13 +7,22 @@ use Illuminate\Http\Request;
 
 class AllergeenController extends Controller
 {
+    private $allergeenModel;
+
+    public function __construct()
+    {
+        $this->allergeenModel = new AllergeenModel();
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+        $allergenen = $this->allergeenModel->sp_GetAllAllergenen();
+
         return view('allergenen.index', [
-            'title' => 'Allergenen'
+            'title' => 'Allergenen',
+            'allergenen' => $allergenen
         ]);
     }
 
