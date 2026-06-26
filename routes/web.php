@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AllergeenController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TandartsController;
 use App\Http\Controllers\PatientController;
@@ -8,9 +9,13 @@ use App\Http\Controllers\MondhygienistController;
 use App\Http\Controllers\AssistentController;
 use Illuminate\Support\Facades\Route;
 
+
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/Allergeen', [AllergeenController::class, 'index']);
+
 # Praktijkmanagement Routes
 Route::get('/praktijkmanagement', [PraktijkmanagementController::class, 'index'])
     ->name('praktijkmanagement.index')
