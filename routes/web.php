@@ -14,7 +14,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/Allergeen', [AllergeenController::class, 'index']);
+Route::get('/Allergeen', [AllergeenController::class, 'index'])->name('allergenen.index');
+Route::get('/allergenen/create', [AllergeenController::class, 'create'])->name('allergenen.create');
+Route::post('/allergenen', [AllergeenController::class, 'store'])->name('allergenen.store');
 
 # Praktijkmanagement Routes
 Route::get('/praktijkmanagement', [PraktijkmanagementController::class, 'index'])

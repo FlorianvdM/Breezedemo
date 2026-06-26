@@ -8,6 +8,14 @@
 </head>
 <body>
     <h1>{{ $title }}</h1>
+    @if (session('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ session('success') }}
+        <button type="button" class="btn-close" aria-label="Sluiten" data-bs-dismiss="alert"></button>
+    </div>
+    <meta http-equiv="refresh" content="3;url={{ route('allergenen.index') }}">
+    @endif
+    <a href="{{ route('allergenen.create') }}" class="btn btn-primary mt-3">Nieuwe Allergeen</a>
     <table class="table">
         <thead>
             <tr>
