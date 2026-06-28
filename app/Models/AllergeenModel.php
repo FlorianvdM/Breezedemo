@@ -25,4 +25,13 @@ class AllergeenModel extends Model
     );
     return $row->new_id;
     }
+
+    public function sp_DeleteAllergeen($id)
+    {
+        $result = DB::selectOne('CALL sp_DeleteAllergeen(:id)', [
+            'id' => $id
+        ]);
+
+        return $result->affected;
+    }
 }

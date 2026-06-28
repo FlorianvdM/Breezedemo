@@ -84,8 +84,16 @@ class AllergeenController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(AllergeenModel $allergeenModel)
+    public function destroy($id)
     {
-        //
+        $result = $this->allergeenModel->sp_DeleteAllergeen($id);
+
+        if ($result > 0) {
+            return redirect()->route('allergenen.index')
+                            ->with('success', 'Allergeen is succesvol verwijderd');
+        }
+
+        return redirect()->route('allergenen.index')
+                        ->with('error', 'Allergeen is niet verwijderd');
     }
 }

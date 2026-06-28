@@ -7,38 +7,54 @@
     <title>Allergeen Pagina</title>
 </head>
 <body>
-    <h1>{{ $title }}</h1>
-    @if (session('success'))
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        {{ session('success') }}
-        <button type="button" class="btn-close" aria-label="Sluiten" data-bs-dismiss="alert"></button>
+    <div class="container">
+        <h2>{{ $title }}</h2>
+
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Sluiten"></button>
+            </div>
+            <meta http-equiv="refresh" content="3;url={{ route('allergenen.index') }}">
+        @elseif (session('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Sluiten"></button>
+            </div>
+            <meta http-equiv="refresh" content="3;url={{ route('allergenen.index') }}">
+        @endif
+
+        <a href="{{ route('allergenen.create') }}" class="btn btn-primary my-3">Nieuw Allergeen</a>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Naam</th>
+                    <th>Omschrijving</th>
+                    <th>Verwijder</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse ($allergenen as $allergeen)
+                    <tr>
+                        <td>{{ $allergeen->Naam }}</td>
+                        <td>{{ $allergeen->Omschrijving }}</td>
+                        <td>
+                            <form action="{{ route('allergeen.destroy', $allergeen->Id) }}" method="POST"
+                                  onsubmit="return confirm('Weet je zeker dat je dit allergeen wilt verwijderen?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm">Verwijderen</button>
+                            </form>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="3">Geen allergenen beschikbaar</td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
     </div>
-    <meta http-equiv="refresh" content="3;url={{ route('allergenen.index') }}">
-    @endif
-    <a href="{{ route('allergenen.create') }}" class="btn btn-primary mt-3">Nieuwe Allergeen</a>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Naam</th>
-                <th>Omschrijving</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse ($allergenen as $allergeen)
-                <tr>
-                    <td>{{ $allergeen->Id }}</td>
-                    <td>{{ $allergeen->Naam }}</td>
-                    <td>{{ $allergeen->Omschrijving }}</td>
-                </tr>
-            @empty
-                <tr>
-                    <td colspan="3">Geen allergenen gevonden.</td>
-                </tr>
-            @endforelse
-        </tbody>
-    </table>
-
-
 </body>
 </html>
