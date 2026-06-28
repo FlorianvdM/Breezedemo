@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="container">
-        <h2>{{ $title }}</h2>
+        <h2 class="my-4">{{ $title }}</h2>
 
         @if (session('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -26,12 +26,13 @@
 
         <a href="{{ route('allergenen.create') }}" class="btn btn-primary my-3">Nieuw Allergeen</a>
 
-        <table class="table">
+        <table class="table table-striped table-bordered align-middle shadow-sm">
             <thead>
                 <tr>
                     <th>Naam</th>
                     <th>Omschrijving</th>
-                    <th>Verwijder</th>
+                    <th class="text-center">Verwijder</th>
+                    <th class="text-center">Wijzig</th>
                 </tr>
             </thead>
             <tbody>
@@ -39,18 +40,21 @@
                     <tr>
                         <td>{{ $allergeen->Naam }}</td>
                         <td>{{ $allergeen->Omschrijving }}</td>
-                        <td>
+                        <td class="text-center">
                             <form action="{{ route('allergeen.destroy', $allergeen->Id) }}" method="POST"
                                   onsubmit="return confirm('Weet je zeker dat je dit allergeen wilt verwijderen?');">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm">Verwijderen</button>
+                                <button type="submit" class="btn btn-danger">Verwijder</button>
                             </form>
+                        </td>
+                        <td class="text-center">
+                            <a href="{{ route('allergeen.edit', $allergeen->Id) }}" class="btn btn-success">Wijzig</a>
                         </td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="3">Geen allergenen beschikbaar</td>
+                        <td colspan='4'>Geen allergenen bekend</td>
                     </tr>
                 @endforelse
             </tbody>

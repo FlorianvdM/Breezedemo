@@ -18,6 +18,8 @@ Route::get('/Allergeen', [AllergeenController::class, 'index'])->name('allergene
 Route::get('/allergenen/create', [AllergeenController::class, 'create'])->name('allergenen.create');
 Route::post('/allergenen', [AllergeenController::class, 'store'])->name('allergenen.store');
 Route::delete('/allergeen/{id}', [AllergeenController::class, 'destroy'])->name('allergeen.destroy');
+Route::get('/allergeen/{id}/edit', [AllergeenController::class, 'edit'])->name('allergeen.edit');
+Route::put('/allergeen/{id}', [AllergeenController::class, 'update'])->name('allergeen.update');
 
 # Praktijkmanagement Routes
 Route::get('/praktijkmanagement', [PraktijkmanagementController::class, 'index'])
